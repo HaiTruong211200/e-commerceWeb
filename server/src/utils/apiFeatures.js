@@ -26,7 +26,10 @@ class APIFeatures {
 
     let queryStr = JSON.stringify(queryObj);
     console.log(queryStr);
-    queryStr = queryStr.replace(/\b(gte|gt|lte|lt)\b/g, (match) => `$${match}`);
+    queryStr = queryStr.replace(
+      /\b(gte|gt|lte|lt|in)\b/g,
+      (match) => `$${match}`
+    );
     console.log(JSON.parse(queryStr));
 
     this.query = this.query.find(JSON.parse(queryStr));
@@ -56,14 +59,13 @@ class APIFeatures {
     return this;
   }
 
-
   paginate() {
     const page = this.queryString.page * 1 || 1;
     const limit = this.queryString.limit * 1 || 20;
     const skip = (page - 1) * limit;
     this.query = this.query.skip(skip).limit(limit);
 
-    this.totalCountQuery = this.query.model.countDocuments();  
+    this.totalCountQuery = this.query.model.countDocuments();
     this.totalPages = 0;
     return this;
   }

@@ -37,7 +37,7 @@ app.use(cookieParser());
 
 app.use(
   cors({
-    origin: `${process.env.FRONTEND_URL ?? "http://localhost:4000"}`,
+    origin: [process.env.FRONTEND_URL, process.env.DEPLOY_FRONTEND_URL],
     credentials: true,
   })
 );
@@ -50,7 +50,7 @@ app.use("/api/v1/orders", orderRoutes);
 app.use("/api/v1/reviews", reviewRoutes);
 app.use("/api/v1/carts", cartRoutes);
 app.use("/api/v1/statistics", statisticRoutes);
-app.use("/api/v1/imgur-upload",imgurRoute )
+app.use("/api/v1/imgur-upload", imgurRoute);
 
 function getPreloadHref(path, query) {
   var reg = new RegExp(`([A-Za-z0-9\\-\\/]+)?`);

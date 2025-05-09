@@ -9,7 +9,6 @@ const filterObj = (obj, ...allowedFields) => {
 };
 
 exports.getUsers = async (req, res) => {
-  console.log("hello");
   try {
     const users = await User.find();
 
@@ -35,7 +34,13 @@ exports.updateMe = async (req, res) => {
       });
     }
 
-    const filteredBody = filterObj(req.body, "displayName", "email", "address", "phone");
+    const filteredBody = filterObj(
+      req.body,
+      "displayName",
+      "email",
+      "address",
+      "phone"
+    );
     console.log(filteredBody);
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id,
@@ -81,7 +86,7 @@ exports.getUser = async (req, res) => {
 
 exports.getMe = (req, res, next) => {
   req.params.id = req.user.id;
-  next(); 
+  next();
 };
 
 exports.createUser = (req, res) => {
