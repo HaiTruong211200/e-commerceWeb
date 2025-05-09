@@ -1,0 +1,13 @@
+.my-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 4px 2px -2px gray;
+}
+
+.btn-rs {
+  width: 40px;
+  height: 40px;
+}

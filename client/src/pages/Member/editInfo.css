@@ -1,0 +1,19 @@
+.my-form {
+  max-width: 500px;
+  margin: auto;
+  padding: 20px;
+}
+
+.forgot-btn {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .my-form {
+    width: 90%;
+  }
+
+  .forgot-btn {
+    width: 100%;
+  }
+}
