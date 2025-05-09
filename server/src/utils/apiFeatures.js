@@ -5,6 +5,7 @@ class APIFeatures {
   }
 
   search() {
+    // console.log(this.queryString);
     if (this.queryString.keyword) {
       const keyword = this.queryString.keyword.trim();
       this.query = this.query.find({
@@ -19,18 +20,19 @@ class APIFeatures {
 
   filter() {
     const queryObj = { ...this.queryString };
-    console.log(this.queryString);
+    // console.log(this.queryString);
     const excludedFields = ["sort", "page", "limit", "field", "keyword"];
 
     excludedFields.forEach((el) => delete queryObj[el]);
 
     let queryStr = JSON.stringify(queryObj);
-    console.log(queryStr);
+    // console.log(queryStr);
     queryStr = queryStr.replace(
       /\b(gte|gt|lte|lt|in)\b/g,
       (match) => `$${match}`
     );
-    console.log(JSON.parse(queryStr));
+    queryStr = queryStr.replace(/-/g, ".");
+    // console.log(JSON.parse(queryStr));
 
     this.query = this.query.find(JSON.parse(queryStr));
     return this;
@@ -39,7 +41,7 @@ class APIFeatures {
   sort() {
     if (this.queryString.sort) {
       const sortBy = this.queryString.sort.split(",").join(" ");
-      console.log(sortBy);
+      // console.log(sortBy);
       this.query = this.query.sort(sortBy);
     } else {
       this.query = this.query.sort(`-createdAt`);
@@ -50,7 +52,7 @@ class APIFeatures {
   limitFields() {
     if (this.queryString.fields) {
       const fields = this.queryString.fields.split(",").join(` `);
-      console.log(fields);
+      // console.log(fields);
       this.query = this.query.select(fields);
     } else {
       this.query = this.query.select("-__v");

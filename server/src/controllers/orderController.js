@@ -180,7 +180,7 @@ exports.deleteOrder = async (req, res) => {
 
 exports.getAllOrdersByUser = async (req, res) => {
   try {
-    console.log(req.params.userId);
+    // console.log(req.params.userId);
     const orders = await Order.find({ userId: req.params.userId }).sort(
       "-createdAt"
     );

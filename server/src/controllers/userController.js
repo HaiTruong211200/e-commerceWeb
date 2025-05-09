@@ -41,7 +41,7 @@ exports.updateMe = async (req, res) => {
       "address",
       "phone"
     );
-    console.log(filteredBody);
+    // console.log(filteredBody);
     const updatedUser = await User.findByIdAndUpdate(
       req.user.id,
       filteredBody,

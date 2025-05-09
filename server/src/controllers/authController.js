@@ -368,7 +368,7 @@ exports.refreshToken = async (req, res) => {
       token: newAccessToken,
     });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     return res.status(401).json({
       status: "fail",
       message: "Invalid refresh token. Please log in again.",

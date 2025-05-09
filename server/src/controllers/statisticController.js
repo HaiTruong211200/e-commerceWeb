@@ -106,7 +106,7 @@ exports.getOrderStats = async (req, res) => {
       cancelled: 0,
       shipped: 0,
       confirmed: 0,
-      delivered:0,
+      delivered: 0,
     };
 
     const dailyOrders = {};

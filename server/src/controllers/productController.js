@@ -4,6 +4,7 @@ const APIFeatures = require("../utils/apiFeatures");
 
 exports.getAllProducts = async (req, res) => {
   try {
+    // console.log(req.query);
     //Search, filter, sort, limit fields, paginate
     const features = new APIFeatures(Product.find(), req.query)
       .search()
