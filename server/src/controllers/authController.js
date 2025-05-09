@@ -328,7 +328,11 @@ exports.googleLogin = (req, res) => {
   // if (user.role == "user")
   //   return res.redirect(`${process.env.FRONTEND_URL}/member`);
   // else return res.redirect(`${process.env.FRONTEND_URL}/admin`);
-  return res.redirect(`${process.env.FRONTEND_URL}/auth?token=${token}`);
+  const redirectURL =
+    process.env.NODE_ENV === "production"
+      ? process.env.DEPLOY_FRONTEND_URL
+      : process.env.FRONTEND_URL;
+  return res.redirect(`${redirectURL}/auth?token=${token}`);
 };
 
 // refresh Token:
