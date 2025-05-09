@@ -20,11 +20,13 @@ const Header = () => {
           </div>
           <div className="header-container-mid d-flex justify-content-center align-items-center gap-4">
             <span
+             className='user-select-none'
               onClick={()=> {
                 navigate('women')
               }}
             >NỮ</span>
             <span
+              className='user-select-none'
               onClick={()=> {
                 navigate('men')
               }}

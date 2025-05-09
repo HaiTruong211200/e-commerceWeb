@@ -121,6 +121,7 @@ const Product: React.FC = function() {
                                     style={{padding: "0.25rem"}}
                                     >
                                         <div
+                                        className='user-select-none'
                                         style={{ backgroundColor: `${color.split('-').pop()}`, width: "1.25rem", height: "1.25rem", border:"solid 1px gray" }}
                                         >
                                             &nbsp;
