@@ -64,8 +64,8 @@ const Header = () => {
               onClick={() => navigate("/")}
               className="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none btn"
             >
-              <img src="/logoe32.png" width="32" height="32" />
-              <img src="/logoc32.png" width="32" height="32" />
+              <img src="/logoe32.png" width="30" height="30" />
+              <img src="/logoc32.png" width="30" height="30" />
             </button>
 
             {/* <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-flex d-md-none">
@@ -87,26 +87,26 @@ const Header = () => {
               </li>
             </ul> */}
 
-            <ul className="nav col-lg-auto me-lg-auto justify-content-center mb-md-0 d-md-flex align-items-center">
-              <li className="nav-item p-1">
+            <ul className="nav col-lg-auto mx-auto justify-content-center mb-0 d-flex align-items-center gap-sm-5">
+              <li className="nav-item">
                 <button
                   onClick={() => navigate("/woman")}
-                  className="nav-link px-2 link-secondary p-1"
+                  className="nav-link link-secondary p-1 fs-6"
                 >
                   NỮ
                 </button>
               </li>
-              <li className="nav-item p-1">
+              <li className="nav-item">
                 <button
                   onClick={() => navigate("/men")}
-                  className="nav-link px-2 link-body-emphasis p-1"
+                  className="nav-link link-body-emphasis p-1 fs-6"
                 >
                   NAM
                 </button>
               </li>
             </ul>
 
-            <div className="d-flex gap-2 align-items-center">
+            <div className="d-flex align-items-center">
               <button
                 onClick={() => navigate("/cart")}
                 className="btn btn-rs"
@@ -126,7 +126,7 @@ const Header = () => {
               {user?.role === "admin" && (
                 <button
                   onClick={() => navigate("/admin")}
-                  className="btn btn-light btn-rs"
+                  className="btn btn-rs d-none d-lg-flex"
                   title="Quản lý"
                 >
                   <i className="header-icon admin pi pi-shield d-flex align-items-center"></i>
