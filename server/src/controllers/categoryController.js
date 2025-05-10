@@ -1,4 +1,5 @@
 const Category = require(`../models/categoryModel`);
+const Product = require("../models/productModel");
 
 exports.getAllCategories = async (req, res) => {
   try {
@@ -68,6 +69,14 @@ exports.updateCategory = async (req, res) => {
 
 exports.deleteCategory = async (req, res) => {
   try {
+    const product = await Product.find({ categoryId: req.params.id });
+    if (product) {
+      return res.status(404).json({
+        status: "fail",
+        statusText: "Không thể xóa. Vẫn còn sản phẩm",
+        data: null,
+      });
+    }
     await Category.findByIdAndDelete(req.params.id);
 
     res.status(200).json({
