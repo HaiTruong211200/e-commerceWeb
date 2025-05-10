@@ -65,7 +65,6 @@ const UserProfile = () => {
       });
       setIsDirty(false);
 
-      // ✅ chỉ cập nhật state nếu gọi API thành công
       setUser((prev: UserProfileProps | null) =>
         prev ? { ...prev, ...updatedInfo } : prev
       );

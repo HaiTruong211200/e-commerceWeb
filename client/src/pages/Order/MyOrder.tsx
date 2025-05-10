@@ -90,7 +90,7 @@ const UserOrders = () => {
 
   // Lấy thông tin người dùng
   useEffect(() => {
-    dispatch(setIsTransference(false))
+    dispatch(setIsTransference(false));
     const fetchUser = async () => {
       try {
         const res = await userService.getMe();
@@ -112,7 +112,7 @@ const UserOrders = () => {
 
   // Lấy đơn hàng khi đã có userData
   useEffect(() => {
-        document.title = "E-COMMERCE | ĐƠN HÀNG ĐÃ ĐẶT";
+    document.title = "E-COMMERCE | ĐƠN HÀNG ĐÃ ĐẶT";
     fetchOrders();
   }, [userData]);
 
@@ -129,19 +129,21 @@ const UserOrders = () => {
     }
   };
 
-  if (loading) return <Loading message="Đang tải ..."/>
+  if (loading) return <Loading message="Đang tải ..." />;
   if (error) return <p className="text-danger text-center mt-5">{error}</p>;
 
   const filteredOrders = orders.filter((order) => order.status === activeTab);
 
   return (
-    <div className="container my-5 mt-0">
+    <div className="container mt-3">
+      {/* <br />
       <br />
-      <br />
-      <br />
-      <span className="list-label text-start mb-3 ">{"đơn hàng của bạn".toUpperCase()}</span>
+      <br /> */}
+      <span className="list-label text-start">
+        {"đơn hàng của bạn".toUpperCase()}
+      </span>
       {/* Tabs */}
-      <ul className="nav nav-tabs mb-4 d-flex nav-pills nav-fill overflow-auto flex-row">
+      <ul className="nav nav-tabs mb-4 d-flex nav-pills nav-fill flex-row mt-3">
         {TABS.map((tab) => (
           <li className="nav-item" key={tab.status}>
             <button
@@ -172,12 +174,12 @@ const UserOrders = () => {
           />
         ))
       )}
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
+      <br />
     </div>
   );
 };

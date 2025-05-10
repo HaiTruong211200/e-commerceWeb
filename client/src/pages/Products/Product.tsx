@@ -196,7 +196,7 @@ const Product: React.FC = function () {
           </div>
           <div className="product-control d-flex justify-content-center align-items-center gap-3">
             <button
-              className="btn product-btn cart-btn d-flex flex-row gap-3 px-4 justify-content-center align-items-center rounded-pill"
+              className="btn product-btn cart-btn d-flex flex-row gap-3 px-4 justify-content-center align-items-center rounded-pill fs-6 fs-sm-4"
               onClick={() => {
                 handlerAddToCart();
               }}

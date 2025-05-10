@@ -55,21 +55,21 @@ const Header = () => {
   return (
     <>
       <header
-        className="p-sm-3 border-bottomfixed-top bg-white shadow-sm position-relative"
+        className="p-sm-1 border-bottom fixed-top bg-white shadow-sm position-relative"
         style={{ zIndex: 999 }}
       >
         <div className="container">
-          <div className="d-flex flex-wrap align-items-center justify-content-between justify-content-lg-start">
+          <div className="d-flex flex-wrap align-items-center justify-content-between">
             <button
               onClick={() => navigate("/")}
               className="d-flex align-items-center mb-2 mb-lg-0 link-body-emphasis text-decoration-none btn"
             >
-              <img src="/logoe32.png" width="36" height="36" />
-              <img src="/logoc32.png" width="36" height="36" />
+              <img src="/logoe32.png" width="32" height="32" />
+              <img src="/logoc32.png" width="32" height="32" />
             </button>
 
-            <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-none d-lg-flex">
-              <li>
+            {/* <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0 d-flex d-md-none">
+              <li className="nav-item">
                 <button
                   onClick={() => navigate("/woman")}
                   className="nav-link px-2 link-secondary"
@@ -77,7 +77,7 @@ const Header = () => {
                   Thời trang nữ
                 </button>
               </li>
-              <li>
+              <li className="nav-item">
                 <button
                   onClick={() => navigate("/men")}
                   className="nav-link px-2 link-body-emphasis"
@@ -85,65 +85,53 @@ const Header = () => {
                   Thời trang nam
                 </button>
               </li>
-              {/* <li>
+            </ul> */}
+
+            <ul className="nav col-lg-auto me-lg-auto justify-content-center mb-md-0 d-md-flex align-items-center">
+              <li className="nav-item p-1">
                 <button
-                  onClick={() => navigate("/customers")}
-                  className="nav-link px-2 link-body-emphasis"
+                  onClick={() => navigate("/woman")}
+                  className="nav-link px-2 link-secondary p-1"
                 >
-                  Mua sắm
+                  NỮ
                 </button>
-              </li> */}
+              </li>
+              <li className="nav-item p-1">
+                <button
+                  onClick={() => navigate("/men")}
+                  className="nav-link px-2 link-body-emphasis p-1"
+                >
+                  NAM
+                </button>
+              </li>
             </ul>
 
-            <div className="d-flex flex-row justify-content-between gap-2 align-items-center">
-              {/* <form className="w-75 mb-2 mb-lg-0 me-lg-3" role="search">
-                <input
-                  type="search"
-                  className="form-control"
-                  placeholder="Search..."
-                  aria-label="Search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-              </form> */}
-
+            <div className="d-flex gap-2 align-items-center">
               <button
                 onClick={() => navigate("/cart")}
-                className="btn btn-light btn-rs"
+                className="btn btn-rs"
                 title="Giỏ hàng"
               >
-                <i
-                  className="header-icon cart pi pi-shopping-cart d-flex align-items-center"
-                  onClick={() => navigate("cart")}
-                ></i>
-                {/* <FaShoppingCart /> */}
+                <i className="header-icon cart pi pi-shopping-cart d-flex align-items-center"></i>
               </button>
 
               <button
                 onClick={() => navigate("/order")}
-                className="btn btn-light btn-rs"
+                className="btn btn-rs"
                 title="Đơn hàng"
               >
-                <i
-                  className="header-icon wish-list pi pi-inbox d-flex align-items-center"
-                  onClick={() => navigate("order")}
-                ></i>
-                {/* <FaClipboardCheck /> */}
+                <i className="header-icon wish-list pi pi-inbox d-flex align-items-center"></i>
               </button>
 
-              {user?.role === "admin" ? (
+              {user?.role === "admin" && (
                 <button
                   onClick={() => navigate("/admin")}
                   className="btn btn-light btn-rs"
                   title="Quản lý"
                 >
-                  <i
-                    className="header-icon admin pi pi-shield d-flex align-items-center"
-                    onClick={() => navigate("/admin")}
-                  ></i>
-                  {/* <FaClipboardCheck /> */}
+                  <i className="header-icon admin pi pi-shield d-flex align-items-center"></i>
                 </button>
-              ) : null}
+              )}
 
               <button
                 className="btn btn-rs d-sm-none"
@@ -153,7 +141,6 @@ const Header = () => {
                 aria-controls="mobileSidebar"
               >
                 <i className="header-icon pi pi-list d-flex align-items-center"></i>
-                {/* <IoMdMenu size={30} /> */}
               </button>
 
               <div className="dropdown text-end d-none d-lg-flex">
@@ -173,13 +160,13 @@ const Header = () => {
                   </button>
                 ) : (
                   <button onClick={handleLogin} className="btn btn-primary">
-                    Login
+                    Đăng nhập
                   </button>
                 )}
 
                 {user && (
                   <ul className="dropdown-menu text-small">
-                    {user?.role === "admin" ? (
+                    {user?.role === "admin" && (
                       <li>
                         <button
                           className="dropdown-item"
@@ -188,7 +175,7 @@ const Header = () => {
                           Admin
                         </button>
                       </li>
-                    ) : null}
+                    )}
                     <li>
                       <button
                         className="dropdown-item"
@@ -212,6 +199,7 @@ const Header = () => {
           </div>
         </div>
       </header>
+
       <div
         className="offcanvas offcanvas-start"
         tabIndex={-1}
@@ -230,7 +218,7 @@ const Header = () => {
               />
             ) : (
               <button onClick={handleLogin} className="btn btn-primary">
-                Login
+                Đăng nhập
               </button>
             )}
             <h6 className="offcanvas-title" id="mobileSidebarLabel">
@@ -246,30 +234,33 @@ const Header = () => {
         </div>
         <div className="offcanvas-body">
           <ul className="nav flex-column">
+            {user?.role === "admin" && (
+              <li className="nav-item">
+                <button
+                  onClick={() => navigate("/admin")}
+                  data-bs-dismiss="offcanvas"
+                  className="nav-link"
+                >
+                  Admin
+                </button>
+              </li>
+            )}
             <li className="nav-item">
-              <button onClick={() => navigate("/woman")} className="nav-link">
-                Thời trang nữ
-              </button>
-            </li>
-            <li className="nav-item">
-              <button onClick={() => navigate("/men")} className="nav-link">
-                Thời trang nam
+              <button
+                onClick={() => navigate("/member")}
+                data-bs-dismiss="offcanvas"
+                className="nav-link"
+              >
+                Tài khoản
               </button>
             </li>
             <li className="nav-item">
               <button
-                onClick={() => navigate("/customers")}
+                onClick={handleLogout}
+                data-bs-dismiss="offcanvas"
                 className="nav-link"
               >
-                Mua sắm
-              </button>
-            </li>
-            <li className="nav-item">
-              <button
-                onClick={() => navigate("/products")}
-                className="nav-link"
-              >
-                Products
+                Đăng xuất
               </button>
             </li>
           </ul>
