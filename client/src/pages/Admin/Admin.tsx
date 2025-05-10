@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import './admin.css';
+import "./admin.css";
 import { useDispatch } from "react-redux";
 import { addToast } from "shared/components/toast/toastSlice";
 import adminService from "./services/adminService";
@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 
 import ProductModalComponent from "./components/productModal";
 import OrderModal from "./components/orderModal";
-import CategoryModal, {CategoryModel} from "./components/categoryModal";
+import CategoryModal, { CategoryModel } from "./components/categoryModal";
 
 import { ProductModel } from "./components/productModal";
 import { getStatusMeta } from "./components/orderModal";
@@ -28,19 +28,25 @@ export default function Admin() {
   const [showConfirmDeleteModal, setShowConfirmDeleteModal] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<string | null>(null);
 
-  const [categoryForm, setCategoryForm] = useState({ name: "", gender: "Tất cả", des: "" });
+  const [categoryForm, setCategoryForm] = useState({
+    name: "",
+    gender: "Tất cả",
+    des: "",
+  });
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const showToast = (msg: string, type: "success" | "error" | "info") =>
     dispatch(addToast({ message: msg, type }));
 
-
   const [selectedOrder, setSelectedOrder] = useState<any | null>(null);
-  const [selectedProduct, setSelectedProduct] = useState<any|null>(null)
-  const [selectedCategory, setSelectedCategory] = useState<CategoryModel | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<any | null>(null);
+  const [selectedCategory, setSelectedCategory] =
+    useState<CategoryModel | null>(null);
 
-  const handleStatusChange = async (status: "pending"|"confirmed"|"shipped"|"delivered"|"cancelled") => {
+  const handleStatusChange = async (
+    status: "pending" | "confirmed" | "shipped" | "delivered" | "cancelled"
+  ) => {
     if (!selectedOrder) return;
     try {
       await adminService.updateOrderStatus(selectedOrder._id, status);
@@ -55,9 +61,8 @@ export default function Admin() {
   const handleProductChange = async (product: any) => {
     try {
       if (!selectedProduct.name) {
-      
         const { _id, id, ...newProduct } = product;
-  
+
         const createRes = await adminService.createProduct(newProduct);
         showToast("Tạo sản phẩm thành công", "success");
       } else {
@@ -89,8 +94,7 @@ export default function Admin() {
   const handleCreate = () => {
     if (activeTab === "categories") {
       setSelectedCategory({ name: "", gender: "Tất cả", des: "" });
-    }
-    else if(activeTab === "products") {
+    } else if (activeTab === "products") {
       const defaultProduct: ProductModel = {
         _id: "",
         id: "",
@@ -100,8 +104,8 @@ export default function Admin() {
         createdAt: new Date().toISOString(),
         gender: "Tất cả",
         images: [],
-        sizes: ["S", "M", "L"],     
-        colors: ["black","white"],
+        sizes: ["S", "M", "L"],
+        colors: ["black", "white"],
         ratingsAverage: 0,
         ratingsCount: 0,
         priceMap: {},
@@ -128,7 +132,6 @@ export default function Admin() {
     };
     guardCheck();
   }, []);
-  
 
   useEffect(() => {
     loadData();
@@ -158,21 +161,32 @@ export default function Admin() {
     }
   };
 
-  const getPageNumbers = (totalPages: number, currentPage: number): (number | string)[] => {
+  const getPageNumbers = (
+    totalPages: number,
+    currentPage: number
+  ): (number | string)[] => {
     const pages: (number | string)[] = [];
-  
+
     if (totalPages <= 5) {
       for (let i = 1; i <= totalPages; i++) pages.push(i);
     } else {
       if (currentPage <= 3) {
-        pages.push(1, 2, 3, '...', totalPages);
+        pages.push(1, 2, 3, "...", totalPages);
       } else if (currentPage >= totalPages - 2) {
-        pages.push(1, '...', totalPages - 2, totalPages - 1, totalPages);
+        pages.push(1, "...", totalPages - 2, totalPages - 1, totalPages);
       } else {
-        pages.push(1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPages);
+        pages.push(
+          1,
+          "...",
+          currentPage - 1,
+          currentPage,
+          currentPage + 1,
+          "...",
+          totalPages
+        );
       }
     }
-  
+
     return pages;
   };
 
@@ -203,9 +217,11 @@ export default function Admin() {
       {TABS.map((tab) => (
         <li className="nav-item " key={tab}>
           <button
-            className={`nav-link text-start w-100 ${activeTab === tab ? "active" : ""}`}
+            className={`nav-link text-start w-100 ${
+              activeTab === tab ? "active" : ""
+            }`}
             onClick={() => {
-              setPage(1); 
+              setPage(1);
               setActiveTab(tab);
             }}
           >
@@ -231,7 +247,10 @@ export default function Admin() {
       ) : (
         <ul className="list-group">
           {dataList.map((item, idx) => (
-            <li className="list-group-item d-flex justify-content-between align-items-center gap-1" key={idx}>
+            <li
+              className="list-group-item d-flex justify-content-between align-items-center gap-1"
+              key={idx}
+            >
               <div
                 className="show-cursor flex-grow-1"
                 onClick={() => {
@@ -244,22 +263,31 @@ export default function Admin() {
                   }
                 }}
               >
-                <strong>{`${idx + 1}. ${item.name || item.shippingAddress?.name || "Không rõ"}`}</strong>
+                <strong>{`${idx + 1}. ${
+                  item.name || item.shippingAddress?.name || "Không rõ"
+                }`}</strong>
                 <div className="text-muted small">
                   {item._id && `ID: ${item._id}`}
                 </div>
               </div>
               {item.status && (
-                <button className={"fw-bolder btn "+ getStatusMeta(item.status).style } disabled>
+                <button
+                  className={
+                    "fw-bolder btn " + getStatusMeta(item.status).style
+                  }
+                  disabled
+                >
                   {getStatusMeta(item.status).label}
                 </button>
               )}
-              {(activeTab === "products" || activeTab === "categories") && <button
-                className="btn btn-link p-0 text-danger"
-                onClick={() => handleShowDeleteModal(item._id)}
-              >
-                <i className="pi pi-trash"></i>
-              </button>}
+              {(activeTab === "products" || activeTab === "categories") && (
+                <button
+                  className="btn btn-link p-0 text-danger"
+                  onClick={() => handleShowDeleteModal(item._id)}
+                >
+                  <i className="pi pi-trash"></i>
+                </button>
+              )}
             </li>
           ))}
         </ul>
@@ -270,7 +298,9 @@ export default function Admin() {
             <ul className="pagination">
               {getPageNumbers(totalPages, page).map((p, i) => (
                 <li
-                  className={`page-item ${p === page ? "active" : ""} ${p === "..." ? "disabled" : ""}`}
+                  className={`page-item ${p === page ? "active" : ""} ${
+                    p === "..." ? "disabled" : ""
+                  }`}
                   key={i}
                 >
                   <button
@@ -288,19 +318,23 @@ export default function Admin() {
       )}
     </div>
   );
-  
+
   return (
     <div className="container container-admin container-fluid">
-      <h4 className="w-100 d-flex"> 
-      <strong>ADMIN</strong>
-      <span className="btn btn-link ms-auto" 
-        onClick={() => navigate('statistic')}>THỐNG KÊ</span>
+      <h4 className="w-100 d-flex">
+        <strong>ADMIN</strong>
+        <span
+          className="btn btn-link ms-auto"
+          onClick={() => navigate("statistic")}
+        >
+          THỐNG KÊ
+        </span>
       </h4>
       <div className="row" style={{ minHeight: "80vh" }}>
         <div className="col-md-2 border-end">{renderTabs()}</div>
         <div className="col-md-10">{renderList()}</div>
       </div>
-     {showConfirmDeleteModal && (
+      {showConfirmDeleteModal && (
         <div className="modal show d-block align-self-center" tabIndex={-1}>
           <div className="modal-dialog">
             <div className="modal-content shadow-lg">
@@ -322,10 +356,7 @@ export default function Admin() {
                 >
                   Hủy
                 </button>
-                <button
-                  className="btn btn-danger"
-                  onClick={handleDelete}
-                >
+                <button className="btn btn-danger" onClick={handleDelete}>
                   Xoá
                 </button>
               </div>

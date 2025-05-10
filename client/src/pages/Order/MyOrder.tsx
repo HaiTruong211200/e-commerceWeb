@@ -148,7 +148,7 @@ const UserOrders = () => {
           <li className="nav-item" key={tab.status}>
             <button
               type="button"
-              className={`nav-link btn-sm btn-lg fs-lg-responsive ${
+              className={`nav-link btn-sm btn fs-lg-responsive ${
                 activeTab === tab.status ? "active" : ""
               }`}
               onClick={() => setActiveTab(tab.status)}
