@@ -1,6 +1,9 @@
 const express = require("express");
 const router = express.Router();
 const statisticsController = require("../controllers/statisticController");
+const authController = require("../controllers/authController");
+
+router.use(authController.protect, authController.restrictTo("admin"));
 
 router.get("/revenue", statisticsController.getRevenueStats);
 router.get("/orders", statisticsController.getOrderStats);
