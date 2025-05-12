@@ -4,7 +4,7 @@ const User = require("./../models/userModel");
 const Cart = require("./../models/cartModel");
 const Email = require("./../utils/email");
 const crypto = require("crypto");
-const USER_URL = process.env.FRONTEND_URL;
+const USER_URL = process.env.DEPLOY_FRONTEND_URL;
 
 const signToken = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET, {
